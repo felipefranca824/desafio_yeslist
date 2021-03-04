@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _homePageController.addlistFields(itemList());
+    _homePageController.addFieldController();
   }
   @override
   Widget build(BuildContext context) {
@@ -36,9 +36,11 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Expanded(
-                    child: ListView(
-                      //shrinkWrap: true,
-                      children: _homePageController.listFields,
+                    child: ListView.builder(
+                      itemCount: _homePageController.quantify,
+                      itemBuilder: (context, index) {
+                        return itemList(index);
+                      },
                     ),
                   ),
                   Padding(
@@ -48,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           RaisedButton(
                             onPressed: () {
-                              _homePageController.addlistFields(itemList());
+                               _homePageController.addFieldController();
                             },
                             child: Text('Adicionar Garrafa'),
                           ),
@@ -63,13 +65,15 @@ class _HomePageState extends State<HomePage> {
             }));
   }
 
-  Widget itemList() {
+  Widget itemList(int index) {
+    print(index);
     return Row(
       children: [
         Expanded(
             child: TextFormField(
+              controller: _homePageController.listFieldControllers.elementAt(index),
           decoration: InputDecoration(
-            hintText: 'Garrafa ${_homePageController.quantify + 1}',
+            hintText: 'Garrafa ${index + 1}',
           ),
         )),
       ],

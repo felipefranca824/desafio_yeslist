@@ -2,11 +2,18 @@ import 'package:flutter/widgets.dart';
 
 class HomePageController extends ChangeNotifier {
   
-  List<Widget> _listFields = List<Widget>();
+  List<TextEditingController> _listFieldControllers = List<TextEditingController>();
 
   int _quantify = 0;
 
-  List<Widget> get listFields => this._listFields;
+  List<TextEditingController> get listFieldControllers => this._listFieldControllers;
+
+  addFieldController(){
+    listFieldControllers.add(TextEditingController());
+    addQuantify();
+    printControllers();
+    notifyListeners();
+  }
 
   get quantify => this._quantify;
 
@@ -14,11 +21,9 @@ class HomePageController extends ChangeNotifier {
     this._quantify++;
   }
 
-  addlistFields(Widget item){
-    listFields.add(item);
-    addQuantify();
-    print(listFields.length);
-    print(quantify);
-    notifyListeners();
+  printControllers(){
+    print("Tamanho ${listFieldControllers.length}");
   }
+
+
 }
