@@ -13,6 +13,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   HomePageController _homePageController = HomePageController();
 
+  TextEditingController _gallonController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -31,6 +33,7 @@ class _HomePageState extends State<HomePage> {
               return Column(
                 children: [
                   TextFormField(
+                    controller: _gallonController,
                     decoration: InputDecoration(
                       hintText: 'Volume do Galão',
                     ),
@@ -42,6 +45,9 @@ class _HomePageState extends State<HomePage> {
                         return itemList(index);
                       },
                     ),
+                  ),
+                  Text(
+                    'Resposta: ${_homePageController.response} Resto: ${_homePageController.rest}'
                   ),
                   Padding(
                       padding: EdgeInsets.symmetric(horizontal: 30.0),
@@ -55,7 +61,9 @@ class _HomePageState extends State<HomePage> {
                             child: Text('Adicionar Garrafa'),
                           ),
                           RaisedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              _homePageController.submit(_gallonController.value.text);
+                            },
                             child: Text('Enviar'),
                           )
                         ],
