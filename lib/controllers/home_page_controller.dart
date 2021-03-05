@@ -6,6 +6,8 @@ class HomePageController extends ChangeNotifier {
 
   double _rest = 0;
 
+  bool _isBotton = false;
+
   String _responseView = '';
 
   List<double> _response = List<double>();
@@ -15,6 +17,10 @@ class HomePageController extends ChangeNotifier {
   double _gallon;
 
   List<double> _bottles = List<double>();
+
+  bool get isBotton => this._isBotton;
+
+  set isBotton(bool value) => this._isBotton = value;
 
   String get reponseView => this._responseView;
 
@@ -138,6 +144,28 @@ class HomePageController extends ChangeNotifier {
       } else {
         this._responseView += '${response[i]}, ';
       }
+    }
+  }
+
+  validate(String text){
+    Pattern pattern = r"^[+-]?[0-9]*\.?[0-9]*$";
+
+    RegExp regex = RegExp(pattern);
+
+    if(regex.hasMatch(text) && text.isNotEmpty){
+      return null;
+    }else{
+      return 'Digite um número válido, utilize . (ponto) para decimal';
+    }
+  }
+
+  viewBotton(String text){
+    if(validate(text) == null){
+      isBotton = true;
+      notifyListeners();
+    } else {
+      isBotton = false;
+      notifyListeners();
     }
   }
 }

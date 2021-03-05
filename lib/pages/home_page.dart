@@ -34,6 +34,13 @@ class _HomePageState extends State<HomePage> {
               return Column(
                 children: [
                   TextFormField(
+                    autovalidate: true,
+                    onChanged: (value) {
+                      _homePageController.viewBotton(value);
+                    },
+                    validator: (text) {
+                      return _homePageController.validate(text);
+                    },
                     controller: _gallonController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
@@ -61,10 +68,12 @@ class _HomePageState extends State<HomePage> {
                             child: Text('Adicionar Garrafa'),
                           ),
                           RaisedButton(
-                            onPressed: () {
-                              _homePageController
-                                  .submit(_gallonController.value.text);
-                            },
+                            onPressed: _homePageController.isBotton
+                                ? () {
+                                    _homePageController
+                                        .submit(_gallonController.value.text);
+                                  }
+                                : null,
                             child: Text('Enviar'),
                           )
                         ],
@@ -80,6 +89,13 @@ class _HomePageState extends State<HomePage> {
       children: [
         Expanded(
             child: TextFormField(
+          autovalidate: true,
+          onChanged: (value) {
+            _homePageController.viewBotton(value);
+          },
+          validator: (text) {
+            return _homePageController.validate(text);
+          },
           keyboardType: TextInputType.number,
           controller: _homePageController.listFieldControllers.elementAt(index),
           decoration: InputDecoration(
