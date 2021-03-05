@@ -56,10 +56,12 @@ class HomePageController extends ChangeNotifier {
   }
 
   setBottles() {
+    response.clear();
     bottles.clear();
     for (var controller in listFieldControllers) {
       bottles.add(double.parse(controller.value.text));
     }
+    printControllers();
     printBottles();
   }
 

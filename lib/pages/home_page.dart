@@ -20,6 +20,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _homePageController.addFieldController();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,9 +35,9 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   TextFormField(
                     controller: _gallonController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      hintText: 'Volume do Galão',
-                    ),
+                        labelText: 'Volume do Galão', hintText: 'Ex.: 5'),
                   ),
                   Expanded(
                     child: ListView.builder(
@@ -47,8 +48,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Text(
-                    'Resposta: ${_homePageController.response} Resto: ${_homePageController.rest}'
-                  ),
+                      'Resposta: ${_homePageController.response} Resto: ${_homePageController.rest}'),
                   Padding(
                       padding: EdgeInsets.symmetric(horizontal: 30.0),
                       child: Row(
@@ -56,13 +56,14 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           RaisedButton(
                             onPressed: () {
-                               _homePageController.addFieldController();
+                              _homePageController.addFieldController();
                             },
                             child: Text('Adicionar Garrafa'),
                           ),
                           RaisedButton(
                             onPressed: () {
-                              _homePageController.submit(_gallonController.value.text);
+                              _homePageController
+                                  .submit(_gallonController.value.text);
                             },
                             child: Text('Enviar'),
                           )
@@ -79,9 +80,10 @@ class _HomePageState extends State<HomePage> {
       children: [
         Expanded(
             child: TextFormField(
-              controller: _homePageController.listFieldControllers.elementAt(index),
+          keyboardType: TextInputType.number,
+          controller: _homePageController.listFieldControllers.elementAt(index),
           decoration: InputDecoration(
-            hintText: 'Garrafa ${index + 1}',
+            labelText: 'Garrafa ${index + 1}',
           ),
         )),
       ],
