@@ -27,6 +27,12 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: Text('Desafio'),
           centerTitle: true,
+          actions: [
+            IconButton(icon: Icon(Icons.refresh), onPressed: (){
+              _gallonController.clear();
+              _homePageController.clearFields();
+            }),
+          ],
         ),
         body: AnimatedBuilder(
             animation: _homePageController,
@@ -55,7 +61,11 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Text(
-                      'Resposta: ${_homePageController.response} Resto: ${_homePageController.rest}'),
+                      'Resposta: ' + _homePageController.reponseView+ ' Resto: ${_homePageController.rest}',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                      ),
+                      ),
                   Padding(
                       padding: EdgeInsets.symmetric(horizontal: 30.0),
                       child: Row(
@@ -102,6 +112,9 @@ class _HomePageState extends State<HomePage> {
             labelText: 'Garrafa ${index + 1}',
           ),
         )),
+        IconButton(icon: Icon(Icons.delete), onPressed: (){
+          _homePageController.deleteController(index);
+        })
       ],
     );
   }

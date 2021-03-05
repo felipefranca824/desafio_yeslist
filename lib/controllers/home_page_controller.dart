@@ -22,7 +22,8 @@ class HomePageController extends ChangeNotifier {
 
   set isBotton(bool value) => this._isBotton = value;
 
-  String get reponseView => this._responseView;
+  String get reponseView =>
+      this._responseView.isEmpty ? '0.0' : this._responseView;
 
   set responseView(String value) {
     this._responseView = value;
@@ -45,6 +46,8 @@ class HomePageController extends ChangeNotifier {
       this._listFieldControllers;
 
   get quantify => this._quantify;
+
+  set quantify(int value) => this._quantify = value;
 
   addFieldController() {
     listFieldControllers.add(TextEditingController());
@@ -121,6 +124,12 @@ class HomePageController extends ChangeNotifier {
     }
   }
 
+  deleteController(int index) {
+    quantify--;
+    listFieldControllers.removeAt(index);
+    notifyListeners();
+  }
+
   submit(valueGallon) {
     responseView = '';
     gallon = double.parse(valueGallon);
@@ -140,32 +149,45 @@ class HomePageController extends ChangeNotifier {
   createStringResponse() {
     for (int i = 0; i < response.length; i++) {
       if (i == response.length - 1) {
-        this._responseView += '${response[i]}';
+        this._responseView = '${this._responseView} ${response[i]}';
       } else {
-        this._responseView += '${response[i]}, ';
+        this._responseView += '${this._responseView} ${response[i]}, ';
       }
     }
   }
 
-  validate(String text){
+  validate(String text) {
     Pattern pattern = r"^[+-]?[0-9]*\.?[0-9]*$";
 
     RegExp regex = RegExp(pattern);
 
-    if(regex.hasMatch(text) && text.isNotEmpty){
+    if (regex.hasMatch(text) && text.isNotEmpty) {
       return null;
-    }else{
+    } else {
       return 'Digite um número válido, utilize . (ponto) para decimal';
     }
   }
 
-  viewBotton(String text){
-    if(validate(text) == null){
-      isBotton = true;
-      notifyListeners();
+  clearFields() {
+    //bottles.clear();
+    quantify = 0;
+    listFieldControllers.clear();
+    notifyListeners();
+  }
+
+  viewBotton(String text) {
+    if (validate(text) == null) {
+      if(quantify > 0){
+        isBotton = true;
+        notifyListeners();
+      } else {
+        isBotton = false;
+        notifyListeners();
+      }
+      
     } else {
-      isBotton = false;
-      notifyListeners();
+        isBotton = false;
+        notifyListeners();
     }
   }
 }
