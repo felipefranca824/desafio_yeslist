@@ -86,14 +86,51 @@ class HomePageController extends ChangeNotifier {
     }
   }
 
+  verifyRestSmaller(List<double> largers, double copyGallon){
+    for (int i = 0; i < largers.length; i++) {
+      if((largers[i] - copyGallon) < (copyGallon - sumValuesResponse())){
+        response.clear();
+        response.add(largers[i]);
+        rest = largers[i] - copyGallon;
+      }
+
+    }
+  }
+
+  sumValuesResponse(){
+    double sum = 0;
+    response.forEach((element){
+      sum += element;
+    });
+
+    return sum;
+  }
+
+  calculateRest(double copyGallon){
+    double sum = sumValuesResponse();
+
+    if(copyGallon > sum){
+      rest = copyGallon - sum;
+    }
+    else{
+      rest = sum - copyGallon;
+    }
+    
+  }
+
   verifyResponse() {
     List<double> notUtility = List<double>();
     int lastPosition = 0;
+    double copyGallon = gallon;
+    List<double> largers = List<double>();
     for (int i = 0; i < bottles.length; i++) {
+      if(copyGallon < bottles[i]){
+          largers.add(bottles[i]);
+      }
       if (gallon - bottles[i] >= 0) {
         gallon = gallon - bottles[i];
         response.add(bottles[i]);
-        if (i == bottles.length || gallon == 0) {
+        if (gallon == 0) {
           rest = 0;
           return;
         }
@@ -109,6 +146,10 @@ class HomePageController extends ChangeNotifier {
         break;
       }
     }
+    print("Respostasss");
+    response.forEach((element) {print(element);});
+    calculateRest(copyGallon);
+    verifyRestSmaller(largers, copyGallon);
   }
 
   deleteController(int index) {
