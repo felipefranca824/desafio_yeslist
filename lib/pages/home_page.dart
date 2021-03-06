@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Text(
-                      'Resposta: ' + _homePageController.responseView+ ' Resto: ${_homePageController.rest}',
+                      'Resposta: ' + _homePageController.responseView+ ' Resto: ${_homePageController.rest.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontSize: 20.0,
                       ),

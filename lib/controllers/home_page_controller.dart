@@ -109,8 +109,8 @@ class HomePageController extends ChangeNotifier {
   calculateRest(double copyGallon){
     double sum = sumValuesResponse();
 
-    if(copyGallon > sum){
-      rest = copyGallon - sum;
+    if(copyGallon < sum){
+      rest = sum - copyGallon;
     }
     else{
       rest = 0;
@@ -118,11 +118,29 @@ class HomePageController extends ChangeNotifier {
     
   }
 
+  checkBestAnswer(List<double> largers){
+    double smaller = double.maxFinite;
+    if(sumValuesResponse() - gallon > 0){
+      largers.forEach((element) {
+        if(element < smaller){
+          smaller = element;
+        }
+      });
+
+      if(smaller < sumValuesResponse()){
+        response.clear();
+        response.add(smaller);
+      }
+      notifyListeners();
+    }
+  }
+
   verifyResponse() {
     List<double> notUtility = List<double>();
     int lastPosition = 0;
     double copyGallon = gallon;
     List<double> largers = List<double>();
+
     for (int i = 0; i < bottles.length; i++) {
       if(copyGallon < bottles[i]){
           largers.add(bottles[i]);
@@ -148,8 +166,9 @@ class HomePageController extends ChangeNotifier {
     }
     print("Respostasss");
     response.forEach((element) {print(element);});
-    calculateRest(copyGallon);
     verifyRestSmaller(largers, copyGallon);
+    checkBestAnswer(largers);
+    calculateRest(copyGallon);
   }
 
   deleteController(int index) {
@@ -174,11 +193,11 @@ class HomePageController extends ChangeNotifier {
   createStringResponse() {
     for (int i = 0; i < response.length; i++) {
       if (i == response.length - 1) {
-        print('response: ${response[i]}');
-        this._responseView = this._responseView + '${response[i]}';
+        print('response: ${response[i].toStringAsFixed(2)}');
+        this._responseView = this._responseView + '${response[i].toStringAsFixed(2)}';
       } else {
         print('response: ${response[i]}');
-        this._responseView = this._responseView + '${response[i]}, ';
+        this._responseView = this._responseView + '${response[i].toStringAsFixed(2)}, ';
       }
     }
   }
