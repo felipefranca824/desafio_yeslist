@@ -113,7 +113,7 @@ class HomePageController extends ChangeNotifier {
       rest = copyGallon - sum;
     }
     else{
-      rest = sum - copyGallon;
+      rest = 0;
     }
     
   }
