@@ -2,9 +2,6 @@ import 'package:desaafio_yeslist/controllers/home_page_controller.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -61,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Text(
-                      'Resposta: ' + _homePageController.reponseView+ ' Resto: ${_homePageController.rest}',
+                      'Resposta: ' + _homePageController.responseView+ ' Resto: ${_homePageController.rest}',
                       style: TextStyle(
                         fontSize: 20.0,
                       ),

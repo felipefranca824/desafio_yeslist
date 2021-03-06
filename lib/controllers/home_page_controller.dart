@@ -22,7 +22,7 @@ class HomePageController extends ChangeNotifier {
 
   set isBotton(bool value) => this._isBotton = value;
 
-  String get reponseView =>
+  String get responseView =>
       this._responseView.isEmpty ? '0.0' : this._responseView;
 
   set responseView(String value) {
@@ -52,7 +52,6 @@ class HomePageController extends ChangeNotifier {
   addFieldController() {
     listFieldControllers.add(TextEditingController());
     addQuantify();
-    printControllers();
     notifyListeners();
   }
 
@@ -60,9 +59,6 @@ class HomePageController extends ChangeNotifier {
     this._quantify++;
   }
 
-  printControllers() {
-    print("Tamanho ${listFieldControllers.length}");
-  }
 
   setBottles() {
     response.clear();
@@ -70,15 +66,8 @@ class HomePageController extends ChangeNotifier {
     for (var controller in listFieldControllers) {
       bottles.add(double.parse(controller.value.text));
     }
-    printControllers();
-    printBottles();
   }
 
-  printBottles() {
-    for (var x in bottles) {
-      print("Garrafa $x");
-    }
-  }
 
   sortSmallToLarger() {
     bottles.sort((a, b) {
@@ -112,11 +101,9 @@ class HomePageController extends ChangeNotifier {
       }
     }
     createListNotUtility(lastPosition, notUtility);
-    print('Tamanho not utility: ${response.length}');
 
     for (var value in notUtility) {
       if (gallon - value < 0) {
-        print("Ta entrando");
         response.add(value);
         rest = value - gallon;
         break;
@@ -135,23 +122,22 @@ class HomePageController extends ChangeNotifier {
     gallon = double.parse(valueGallon);
     setBottles();
     sortSmallToLarger();
+    bottles.forEach((element) {print(element);});
     verifyResponse();
-    print("Resposta: ");
-    for (var item in response) {
-      print(item);
-    }
-    print("Resto: $rest");
-    print('Tamanho response: ${response.length}');
+    response.forEach((element) {print('Resposta:$element');});
     createStringResponse();
+    print(this._responseView);
     notifyListeners();
   }
 
   createStringResponse() {
     for (int i = 0; i < response.length; i++) {
       if (i == response.length - 1) {
-        this._responseView = '${this._responseView} ${response[i]}';
+        print('response: ${response[i]}');
+        this._responseView = this._responseView + '${response[i]}';
       } else {
-        this._responseView += '${this._responseView} ${response[i]}, ';
+        print('response: ${response[i]}');
+        this._responseView = this._responseView + '${response[i]}, ';
       }
     }
   }
@@ -169,7 +155,6 @@ class HomePageController extends ChangeNotifier {
   }
 
   clearFields() {
-    //bottles.clear();
     quantify = 0;
     listFieldControllers.clear();
     notifyListeners();
