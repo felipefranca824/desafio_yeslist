@@ -1,16 +1,8 @@
 # desaafio_yeslist
 
-A new Flutter project.
+Para executar o projeto existem duas possibilidades:
+    1 - Baixar e instalar em um dispositivo android o .apk presente na raiz do projeto
 
-## Getting Started
+    2 - Clonar o projeto e realizar todo o procediemnto de instalação do flutter e executar.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Link de instalaçao do fluuter: https://flutter.dev/docs/get-started/install
